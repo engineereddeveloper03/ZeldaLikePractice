@@ -2,6 +2,7 @@
 
 
 #include "PlayerCharacter_Base.h"
+#include "EnhancedInputSubsystems.h"
 
 // Sets default values
 APlayerCharacter_Base::APlayerCharacter_Base()
@@ -30,4 +31,15 @@ void APlayerCharacter_Base::SetupPlayerInputComponent(UInputComponent* PlayerInp
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	// Save out player controller.  Set here because this function calls before BeginPlay
+	PlayerController = Cast<AZeldaLikePlayerController>(GetController());
+
+	// Map input context to this player character
+	if (PlayerController)
+	{
+		UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
+
+		Subsystem->ClearAllMappings();
+		Subsystem->AddMappingContext(defaultMappingContext, 0);
+	}
 }
