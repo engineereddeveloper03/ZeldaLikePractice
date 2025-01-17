@@ -33,23 +33,26 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+#pragma region Input Actions
 	/**Mapping Context */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* defaultMappingContext;
 
-	/**Camera Input */
+	/**Input Action Data Structure */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction* cameraAction;
+	class UPlayerInputConfig* InputActions;
 
-	/**Movement Input */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction* moveAction;
+	UFUNCTION()
+	void LookAction(const FInputActionValue& Value);
 
-	/**Jump Input */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction* jumpAction;
+	UFUNCTION()
+	void MoveAction(const FInputActionValue& Value);
 
-	/**Crouch Input */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction* crouchAction;
+	UFUNCTION()
+	void JumpAction(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void CrouchAction(const FInputActionValue& Value);
+
+#pragma endregion
 };

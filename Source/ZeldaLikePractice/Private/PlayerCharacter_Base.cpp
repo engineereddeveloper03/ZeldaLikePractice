@@ -3,6 +3,8 @@
 
 #include "PlayerCharacter_Base.h"
 #include "EnhancedInputSubsystems.h"
+#include "EnhancedInputComponent.h"
+#include "PlayerInputConfig.h"
 
 // Sets default values
 APlayerCharacter_Base::APlayerCharacter_Base()
@@ -31,7 +33,7 @@ void APlayerCharacter_Base::SetupPlayerInputComponent(UInputComponent* PlayerInp
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	// Save out player controller.  Set here because this function calls before BeginPlay
+	// Save out player controller.  Set here because this calls before BeginPlay
 	PlayerController = Cast<AZeldaLikePlayerController>(GetController());
 
 	// Map input context to this player character
@@ -42,4 +44,35 @@ void APlayerCharacter_Base::SetupPlayerInputComponent(UInputComponent* PlayerInp
 		Subsystem->ClearAllMappings();
 		Subsystem->AddMappingContext(defaultMappingContext, 0);
 	}
+
+	UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+
+	if (Input)
+	{
+		Input->BindAction(InputActions->Look, ETriggerEvent::Triggered, this, &APlayerCharacter_Base::LookAction);
+		//Input->BindAction(InputActions->Move, ETriggerEvent::Triggered, this, &APlayerCharacter_Base::MoveAction);
+		//Input->BindAction(InputActions->Jump, ETriggerEvent::Triggered, this, &APlayerCharacter_Base::JumpAction);
+		//Input->BindAction(InputActions->Crouch, ETriggerEvent::Triggered, this, &APlayerCharacter_Base::CrouchAction);
+	}
+	
+}
+
+void APlayerCharacter_Base::LookAction(const FInputActionValue& Value)
+{
+
+}
+
+void APlayerCharacter_Base::MoveAction(const FInputActionValue& Value)
+{
+
+}
+
+void APlayerCharacter_Base::JumpAction(const FInputActionValue& Value)
+{
+
+}
+
+void APlayerCharacter_Base::CrouchAction(const FInputActionValue& Value)
+{
+
 }
