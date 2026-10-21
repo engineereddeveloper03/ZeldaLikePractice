@@ -4,8 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Character_Base.h"
-#include "ZeldaLikePlayerController.h"
+#include "InputActionValue.h"
 #include "PlayerCharacter_Base.generated.h"
+
+class AZeldaLikePlayerController;
+class UInputComponent;
+class UInputMappingContext;
+class UPlayerInputConfig;
 
 /**
  * 
@@ -24,23 +29,24 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	AZeldaLikePlayerController* PlayerController;
+	UPROPERTY()
+	TObjectPtr<AZeldaLikePlayerController> PlayerController;
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 #pragma region Input Actions
 	/**Mapping Context */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext* defaultMappingContext;
+	TObjectPtr<UInputMappingContext> DefaultMappingContext;
 
 	/**Input Action Data Structure */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UPlayerInputConfig* InputActions;
+	TObjectPtr<UPlayerInputConfig> InputActions;
 
 	UFUNCTION()
 	void LookAction(const FInputActionValue& Value);

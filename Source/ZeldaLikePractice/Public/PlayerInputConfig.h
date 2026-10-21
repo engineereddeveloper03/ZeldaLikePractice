@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "InputAction.h"
 #include "PlayerInputConfig.generated.h"
 
+class UInputAction;
 
 /**
  * 
@@ -19,17 +19,17 @@ class ZELDALIKEPRACTICE_API UPlayerInputConfig : public UDataAsset
 public:
 	/**Camera Input */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputAction* Look;
+	TObjectPtr<UInputAction> Look;
 
 	/**Movement Input */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputAction* Move;
+	TObjectPtr<UInputAction> Move;
 
 	/**Jump Input */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputAction* Jump;
+	TObjectPtr<UInputAction> Jump;
 
 	/**Crouch Input */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputAction* Crouch;
+	TObjectPtr<UInputAction> Crouch;
 };

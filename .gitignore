@@ -75,3 +75,9 @@ DerivedDataCache/*
 
 # Starter Content #
 Content/StarterContent/*
+
+# Generated solution / IDE files (UE 5.8+)
+*.slnx
+*.code-workspace
+.vscode/*
+!.vscode/mcp.json

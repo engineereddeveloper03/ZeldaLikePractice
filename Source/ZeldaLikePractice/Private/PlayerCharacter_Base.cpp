@@ -5,6 +5,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "PlayerInputConfig.h"
+#include "ZeldaLikePlayerController.h"
 
 // Sets default values
 APlayerCharacter_Base::APlayerCharacter_Base()
@@ -41,13 +42,17 @@ void APlayerCharacter_Base::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	{
 		UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
 
-		Subsystem->ClearAllMappings();
-		Subsystem->AddMappingContext(defaultMappingContext, 0);
+		if (Subsystem)
+		{
+			Subsystem->ClearAllMappings();
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
 	}
 
 	UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 
-	if (Input)
+	// Skip binding if input config unassigned
+	if (Input && InputActions)
 	{
 		Input->BindAction(InputActions->Look, ETriggerEvent::Triggered, this, &APlayerCharacter_Base::LookAction);
 		//Input->BindAction(InputActions->Move, ETriggerEvent::Triggered, this, &APlayerCharacter_Base::MoveAction);
