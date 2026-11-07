@@ -81,3 +81,6 @@ Content/StarterContent/*
 *.code-workspace
 .vscode/*
 !.vscode/mcp.json
+
+# Per-machine Claude notes
+CLAUDE.local.md
