@@ -14,6 +14,7 @@ UE 5.8 action-adventure: classic 3D Zelda (OoT/MM/TP) meets Metroid Prime. Comme
 - Engine: UE 5.8 source build, VS 2026. Paths are per-machine.
 - Machine-specific paths (engine, build, regen) live in `CLAUDE.local.md` (gitignored). If missing on a new PC, ask the user and create it.
 - `.uproject` uses `"EngineAssociation": "UE5.8-PS"`. On a new PC, verify `HKCU\Software\Epic Games\Unreal Engine\Builds` has string value `UE5.8-PS` = that PC's engine root (forward slashes); remind the user to add it if missing. Never commit a GUID association.
+  - Remove any other `Builds` value pointing at the same engine root (e.g. an auto-registered GUID). UE dedupes same-path entries on enumeration and deletes all but the first, which can silently remove `UE5.8-PS`.
 - Build: `Build.bat ZeldaLikePracticeEditor Win64 Development -Project="<repo>\ZeldaLikePractice.uproject" -WaitMutex`.
 - Regen project files after adding/moving source or changing `.Build.cs`.
 - Build after every C++ change. If the editor is open with Live Coding, CLI builds fail, and header/reflection changes need the editor closed; tell the user.
